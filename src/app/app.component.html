@@ -9,24 +9,23 @@
       </a>
     </div>
   </header>
-
+  
   <div class="content-container">
     <div class="content-area">
       <clr-tabs>
         <clr-tab>
           <button clrTabLink>Слова</button>
           <clr-tab-content *clrIfActive>
-            <app-word-selector ></app-word-selector>
+             <app-word-selector [completedWord]="[]" (select)="wordsSelected($event)"></app-word-selector>
+           <app-word-add > </app-word-add>
           </clr-tab-content>
         </clr-tab>
-
-        <clr-tab *ngIf="true">
+        <clr-tab *ngIf="trainingList.length">
           <button clrTabLink>Упражнения</button>
           <clr-tab-content *clrIfActive>
-            <app-word-sorter ></app-word-sorter>
+            <app-word-sorter [trainingList]="trainingList"></app-word-sorter>
           </clr-tab-content>
         </clr-tab>
-
         <clr-tab>
           <button clrTabLink>Настройки</button>
           <clr-tab-content *clrIfActive>
@@ -52,6 +51,13 @@
           </clr-tab-content>
         </clr-tab>
       </clr-tabs>
+      <div class="word-selector">
+        <h2>или добавьте свое слово</h2>
+        <input id='my-input2' type="text">{{name}}
+        <div style="visibility: hidden">Минимальная длина текста - 3 символа</div>
+        <ul id='my-url2' ></ul>
+        <button class="btn btn-primary" >Добавить</button>
+        </div> 
     </div>
   </div>
 </div>

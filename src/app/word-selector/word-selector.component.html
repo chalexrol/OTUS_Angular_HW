@@ -1,8 +1,13 @@
 <div class="word-selector">
   <h2>Выберите слова для изучения</h2>
   <ul>
-1 word - слово 1 <br>
-2 .... и тд
+    <li *ngFor="let item of selectedWords">
+        <button type="button" class="close" aria-label="Close" (click)="removeWord(item.word)">
+          <clr-icon aria-hidden="true" shape="close"></clr-icon>
+        </button>
+        {{ item.word }} {{ item.transcription }} {{ item.translation }}
+      </li>
     </ul>
   </div>    
-  <button class="btn btn-primary"  [disabled]="false">Начать упражнение</button>
+  <button class="btn btn-primary" (click)="done()" [disabled]="selectedWords.length===0">Начать упражнение</button>
+  
