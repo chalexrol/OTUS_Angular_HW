@@ -1,5 +1,6 @@
-import { Input, Output, Component, OnInit, EventEmitter } from '@angular/core';
+import { Component, OnInit, EventEmitter } from '@angular/core';
 import allWords from './vocabulary';
+import { ShareService } from '../share.service';
 
 const storageKey = 'known-words';
 export interface VocabularyItem {
@@ -7,18 +8,18 @@ export interface VocabularyItem {
   transcription: string;
   translation: string;
 }
+
 @Component({
   selector: 'app-word-selector',
   templateUrl: './word-selector.component.html',
   styleUrls: ['./word-selector.component.scss']
 })
 export class WordSelectorComponent implements OnInit {
-  @Input() completedWord: Array<string>;
-  @Output() select = new EventEmitter<Array<VocabularyItem>>();
+  completedWord: Array<string> = [];
   knownWords: Array<string> = [];
   selectedWords: Array<VocabularyItem> = [];
-  constructor() { }
 
+  constructor(private shareSrv: ShareService) { }
   ngOnInit() {
     const stored = localStorage.getItem(storageKey);
     if (stored) {
@@ -50,18 +51,15 @@ export class WordSelectorComponent implements OnInit {
     localStorage.setItem(storageKey, JSON.stringify(this.knownWords));
   }
 
-
   selectWords(max: number = 5) {
     for (const item of this.availableWords()) {
       if (this.selectedWords.length >= max) {
         break;
       } else {
         this.selectedWords.push(item);
-      }
+       }
     }
   }
 
-  done() {
-    this.select.emit(this.selectedWords);
-  }
+  done() { this.shareSrv.data = this.selectedWords; }
 }

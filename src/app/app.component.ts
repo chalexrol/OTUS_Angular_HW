@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { VocabularyItem } from './word-selector/word-selector.component';
+import { ShareService } from './share.service';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -8,8 +9,6 @@ import { VocabularyItem } from './word-selector/word-selector.component';
 export class AppComponent {
   title = 'foreignmemo';
   options: any;
-  trainingList: Array<VocabularyItem> = []
-  wordsSelected(list: Array<VocabularyItem>) {
-    this.trainingList = list;
-  }
+  constructor(private shareSrv: ShareService) { }
 }
+

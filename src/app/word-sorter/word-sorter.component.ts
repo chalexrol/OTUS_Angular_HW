@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 
 import { VocabularyItem } from '../word-selector/word-selector.component';
+import { ShareService } from '../share.service';
+import { share } from 'rxjs/operators';
 
 @Component({
   selector: 'app-word-sorter',
@@ -8,13 +10,16 @@ import { VocabularyItem } from '../word-selector/word-selector.component';
   styleUrls: ['./word-sorter.component.scss']
 })
 export class WordSorterComponent implements OnInit {
-  @Input() trainingList: Array<VocabularyItem>;
+  trainingList: Array<VocabularyItem>;
   randomizedTranslations: Array<string>;
   errors: Array<VocabularyItem> = [];
   success = false;
-  constructor() { }
+  constructor(private shareSrv: ShareService) {
+    console.log(shareSrv.data)
+        }
 
   ngOnInit() {
+    this.trainingList = this.shareSrv.data;
     this.shuffle();
   }
 

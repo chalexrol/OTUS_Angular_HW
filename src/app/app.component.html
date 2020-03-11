@@ -9,55 +9,14 @@
       </a>
     </div>
   </header>
-  
-  <div class="content-container">
-    <div class="content-area">
-      <clr-tabs>
-        <clr-tab>
-          <button clrTabLink>Слова</button>
-          <clr-tab-content *clrIfActive>
-             <app-word-selector [completedWord]="[]" (select)="wordsSelected($event)"></app-word-selector>
-           <app-word-add > </app-word-add>
-          </clr-tab-content>
-        </clr-tab>
-        <clr-tab *ngIf="trainingList.length">
-          <button clrTabLink>Упражнения</button>
-          <clr-tab-content *clrIfActive>
-            <app-word-sorter [trainingList]="trainingList"></app-word-sorter>
-          </clr-tab-content>
-        </clr-tab>
-        <clr-tab>
-          <button clrTabLink>Настройки</button>
-          <clr-tab-content *clrIfActive>
-            <clr-input-container>
-                <label>Количество слов</label>
-                <input type="number" min=1 max=10 clrInput placeholder="Words count" name="name" />
-            </clr-input-container>            
-            <clr-toggle-container>
-              <label>Выберите язык</label>
-              <clr-toggle-wrapper>
-                <input type="checkbox" clrToggle name="options" required value="English" />
-                <label>Английский</label>
-              </clr-toggle-wrapper>
-              <clr-toggle-wrapper>
-                <input type="checkbox" clrToggle name="options" required value="German"  disabled/>
-                <label>Немецкий</label>
-              </clr-toggle-wrapper>
-              <clr-toggle-wrapper>
-                <input type="checkbox" clrToggle name="options" required value="French" disabled/>
-                <label>Французский</label>
-              </clr-toggle-wrapper>
-            </clr-toggle-container>
-          </clr-tab-content>
-        </clr-tab>
-      </clr-tabs>
-      <div class="word-selector">
-        <h2>или добавьте свое слово</h2>
-        <input id='my-input2' type="text">{{name}}
-        <div style="visibility: hidden">Минимальная длина текста - 3 символа</div>
-        <ul id='my-url2' ></ul>
-        <button class="btn btn-primary" >Добавить</button>
-        </div> 
-    </div>
+ 
+ <nav>
+    <a routerLink="/words" routerLinkActive="active">Слова</a>
+    <a routerLink="/training" *ngIf="shareSrv.data.length" routerLinkActive="active">Упражнения</a>
+    <a routerLink="/setup" routerLinkActive="active">Настройка</a>
+ </nav>
+  <div>
+    <router-outlet #routerOutlet="outlet"></router-outlet>
   </div>
-</div>
+  <router-outlet name="popup"></router-outlet>  
+  
