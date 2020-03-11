@@ -1,0 +1,22 @@
+<div class="main-container">
+  <header class="header header-6">
+    <div class="branding">
+      <a class="nav-link">
+        <img src="favicon.png" class="logo">
+        <span class="title">
+          Тренировка запоминания иностранных слов
+        </span>
+      </a>
+    </div>
+  </header>
+ 
+ <nav>
+    <a routerLink="/words" routerLinkActive="active">Слова</a>
+    <a routerLink="/training" *ngIf="shareSrv.data.length" routerLinkActive="active">Упражнения</a>
+    <a routerLink="/setup" routerLinkActive="active">Настройка</a>
+ </nav>
+  <div>
+    <router-outlet #routerOutlet="outlet"></router-outlet>
+  </div>
+  <router-outlet name="popup"></router-outlet>  
+  
