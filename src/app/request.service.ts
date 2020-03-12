@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { VocabularyItem } from './word-selector/word-selector.component'; 
 import { fromEvent, from, of } from 'rxjs';
 import { debounceTime, map, filter, distinctUntilChanged, mergeMap, catchError } from 'rxjs/operators';
 
@@ -7,9 +6,7 @@ import { debounceTime, map, filter, distinctUntilChanged, mergeMap, catchError }
   providedIn: 'root',
 })
 
-export class ShareService {
-  data: Array<VocabularyItem> = [];
-
+export class ReqService {
   getWord() {
     const input = document.getElementById('my-input2');
     const ul = document.getElementById('my-url2');
@@ -26,7 +23,6 @@ export class ShareService {
     ).subscribe({
       next: reps => recordRepsToList(reps)
     });
-  
     const recordRepsToList = (reps) => {
       if (!ul.children[0]) {
           const newEl = document.createElement('li');
@@ -36,7 +32,7 @@ export class ShareService {
         li.innerHTML = 'Перевод : ' + reps.text[0];
     };
     const getUsersRepsFromAPI = (username) => {
-    const url = `https://translate.yandex.net/api/v1.5/tr.json/translate?lang=en-ru&key=trnsl.1.1.20200213T113711Z.bed7c87204c033cf.0edf555cd415859b44ff4b7ab77c16e410ec7ea9&text=${ username }`;
+const url = `https://translate.yandex.net/api/v1.5/tr.json/translate?lang=en-ru&key=trnsl.1.1.20200213T113711Z.bed7c87204c033cf.0edf555cd415859b44ff4b7ab77c16e410ec7ea9&text=${ username }`;
       return fetch(url)
         .then(response => {
           if (response.ok) {
